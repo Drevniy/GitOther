@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="PersonAndManyDB/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/Java/Classwork/DB/git/tic-tac-toe_online/Games_Server/lib/h2-1.3.172.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -10,46 +10,104 @@ import javax.swing.table.TableModel;
 
 public class ModelTable implements TableModel 
 {
-
+	
+	private ArrayList<Person> listPerson;
+	
+	public ModelTable() {
+		this.listPerson = FromDAO.read(null);
+	}
+	
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return listPerson.size();
 	}
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 4;
 	}
 
 	@Override
 	public String getColumnName(int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		String res = "";
+		switch (columnIndex) {
+			case 0:
+				res = "id";
+				break;
+			case 1:
+				res = "First Name";
+				break;
+			case 2:
+				res = "LastName";
+				break;
+			case 3:
+				res = "Age";
+				break;
+	
+			default:
+				break;
+		}
+		return res;
 	}
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		return "".getClass();
 	}
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = false;
+		if(columnIndex==1||columnIndex==2||columnIndex==3){
+			res = true;
+		}
+		return res;
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		Object res = null;
+		Person person = listPerson.get(rowIndex);
+		switch (columnIndex) {
+			case 0:
+				res = person.getId();
+				break;
+			case 1:
+				res = person.getFirstName();
+				break;
+			case 2:
+				res = person.getLastName();
+				break;
+			case 3:
+				res = person.getAge();
+				break;
+	
+			default:
+				break;
+		}
+		return res;
 	}
 
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
+		Person person = listPerson.get(rowIndex);
+		switch (columnIndex) {
+			case 0:
+				person.setId(Integer.parseInt((String) aValue));
+				break;
+			case 1:
+				person.setFirstName((String) aValue);
+				break;
+			case 2:
+				person.setLastName((String) aValue);
+				break;
+			case 3:
+				person.setAge(Integer.parseInt((String) aValue));
+				break;
+	
+			default:
+				break;
+		}
 		
 	}
 
