@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class DAO_MongoDB {
 
 	public static void add(Person person) {
-		// TODO Auto-generated method stub
+		System.out.println("add");
 		
 	}
 
@@ -44,6 +44,8 @@ public class DAO_MongoDB {
 				e.printStackTrace();
 			}
 			
+		}else{
+			System.out.println("read");
 		}
 		
 		
@@ -51,12 +53,12 @@ public class DAO_MongoDB {
 	}
 
 	public static void update(Person person) {
-		// TODO Auto-generated method stub
+		System.out.println("update");
 		
 	}
 
 	public static void delete(int id) {
-		// TODO Auto-generated method stub
+		System.out.println("delete");
 		
 	}
 

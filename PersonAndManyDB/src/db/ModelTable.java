@@ -3,6 +3,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
@@ -10,10 +11,11 @@ import javax.swing.table.TableModel;
 
 public class ModelTable implements TableModel 
 {
-	
 	private ArrayList<Person> listPerson;
+	JTable table;
 	
-	public ModelTable() {
+	public ModelTable(JTable table) {
+		this.table = table;
 		this.listPerson = FromDAO.read(null);
 	}
 	
@@ -108,7 +110,7 @@ public class ModelTable implements TableModel
 			default:
 				break;
 		}
-		
+		FromDAO.update(person);
 	}
 
 	@Override
@@ -121,6 +123,15 @@ public class ModelTable implements TableModel
 	public void removeTableModelListener(TableModelListener l) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public ArrayList<Person> getListPerson() {
+		return listPerson;
+	}
+	
+	public void setListPerson(ArrayList<Person> listPerson) {
+		this.listPerson = listPerson;
+		table.revalidate();
 	}
 
 }

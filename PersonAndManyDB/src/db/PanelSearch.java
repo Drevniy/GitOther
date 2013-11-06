@@ -1,6 +1,9 @@
 package db;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -9,8 +12,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class PanelSearch extends JPanel{
+	JTextField txtFirstName;
+	JTextField txtLastName;
+	JTextField txtAge;
+	ModelTable modelTable;
 	
-	public PanelSearch() {
+	
+	public PanelSearch(final ModelTable modelTable) {
+		this.modelTable = modelTable;
+		
 		GridLayout gridLayout = new GridLayout(2, 5);
 		gridLayout.setHgap(5);
 		gridLayout.setVgap(5);
@@ -30,9 +40,9 @@ public class PanelSearch extends JPanel{
 		
 		JButton btnSearch = new JButton("Search");
 		
-		JTextField txtFirstName = new JTextField("");
-		JTextField txtLastName = new JTextField("");
-		JTextField txtAge = new JTextField("");
+		txtFirstName = new JTextField("");
+		txtLastName = new JTextField("");
+		txtAge = new JTextField("");
 		
 		add(lblFirstName);
 		add(txtFirstName);
@@ -44,6 +54,31 @@ public class PanelSearch extends JPanel{
 		add(lblEmpty2);
 		add(lblEmpty3);
 		add(btnSearch);
+		
+		btnSearch.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(txtFirstName.getText().equals("")&&txtLastName.getText().equals("")
+						&&txtAge.getText().equals("")){
+					
+					ArrayList<Person> listPerson= FromDAO.read(null);
+					modelTable.setListPerson(listPerson);
+				}else{
+					Person person = new Person();
+					person.setFirstName(txtFirstName.getText());
+					person.setLastName(txtLastName.getText());
+					if(txtAge.getText().equals("")){
+					}else{
+						person.setAge(Integer.parseInt(txtAge.getText()));
+					}
+					
+					ArrayList<Person> listPerson= FromDAO.read(person);
+					modelTable.setListPerson(listPerson);
+				}
+				
+			}
+		});
 	}
 
 }
