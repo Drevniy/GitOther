@@ -1,5 +1,6 @@
 package db;
 import java.io.File;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,7 +17,12 @@ public class ModelTable implements TableModel
 	
 	public ModelTable(JTable table) {
 		this.table = table;
-		this.listPerson = FromDAO.read(null);
+		try {
+			this.listPerson = FromDAO.read(null);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

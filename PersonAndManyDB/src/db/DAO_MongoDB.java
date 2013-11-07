@@ -1,64 +1,67 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.MongoClient;
 
-public class DAO_MongoDB {
+public class DAO_MongoDB{
 
-	public static void add(Person person) {
-		System.out.println("add");
+	public static void add(Person person) throws UnknownHostException {
+		MongoClient mongoClient = new MongoClient( "192.168.0.105" , 27017 );
+		DB db = mongoClient.getDB( "db" );
+		BasicDBObject doc = new BasicDBObject("id", person.getId()).
+				append("firstName", person.firstName).
+				append("lastName", person.lastName).
+				append("age", person.age);
+
+		DBCollection coll = db.getCollection("person");
+		System.out.println("connect");
+
+		coll.insert(doc);
+
+
 		
 	}
 
-	public static ArrayList<Person> read(Person person) {
-		 ArrayList<Person> personList =  new  ArrayList<>();
+	public static ArrayList<Person> read(Person personIn) throws UnknownHostException {
+		 ArrayList<Person> listPerson = new ArrayList<Person>();
+
 		
-		if(person == null){
-			try {
-				Class.forName("org.h2.Driver");
-				Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
-		        
-		        Statement st = conn.createStatement();
-		        ResultSet result;
-		        result = st.executeQuery("select * from person");
-		        
-		        while (result.next())
-		        {
-		        	Person personNew = new Person(); 
-		        	
-		        	personNew.setId(result.getInt("ID"));
-		        	personNew.setFirstName(result.getString("FIRSTNAME"));
-		        	personNew.setLastName(result.getString("LASTNAME"));
-		        	personNew.setAge(result.getInt("AGE"));
-		        	personList.add(personNew);
-		        }
-		        st.close();
-		        conn.close();
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}else{
-			System.out.println("read");
+		if(personIn == null){
+		MongoClient mongoClient = new MongoClient( "192.168.0.105" , 27017 );
+		DB db = mongoClient.getDB( "db" );
+		DBCollection collection = db.getCollection("person");
+		 DBCursor cursor =  collection.find();
+		  
+		  
+		  while (cursor.hasNext()) {
+		  
+		   System.out.println(cursor.next());
+		   
+		   Person person = new Person();
+		   person.setId( (int) cursor.curr().get("id"));
+		   person.setFirstName((String) cursor.curr().get("firstName"));
+		   person.setLastName((String) cursor.curr().get("lastName"));
+		   person.setAge(Integer.parseInt((String) cursor.curr().get("age")));  
+		   
+		   listPerson.add(person);
+		  }
 		}
+		return listPerson;
+}
+
+	public void update(Person person) {
+		// TODO Auto-generated method stub
 		
-		
-		return personList;
 	}
 
-	public static void update(Person person) {
-		System.out.println("update");
-		
-	}
-
-	public static void delete(int id) {
-		System.out.println("delete");
+	public void delete(int id) {
+		// TODO Auto-generated method stub
 		
 	}
 
