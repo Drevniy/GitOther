@@ -1,7 +1,9 @@
 package test;
 
-import java.awt.Dimension;
 import java.net.UnknownHostException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import org.junit.Test;
 
@@ -10,6 +12,7 @@ import db.Person;
 
 public class Mongo {
 
+	
 	public void test() throws UnknownHostException {
 		Person person = new Person();
 		
@@ -22,9 +25,12 @@ public class Mongo {
 	}
 	
 	@Test
-	public void test1() throws UnknownHostException {
+	public void test1() throws UnknownHostException, ClassNotFoundException, SQLException {
 		
-		DAO_MongoDB.read();
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = null;
+		conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test","sqluser", "sqluser");
+		conn.close();
 	}
 	
 }
