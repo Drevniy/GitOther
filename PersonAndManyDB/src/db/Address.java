@@ -8,26 +8,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
 @Table(name="Address")
-public class Adress {
+public class Address {
 	
-	@Column(name="id")
 	int id;
-	
-	@Column(name="person_id")
-	int person_id;
-	
-	@Column(name="city")
 	String adress;
+	int idPepson;
 	
-
-	public Adress() {
-		
-	}
-	
-   
+	@Id
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
+    @Column(name="id")
 	public int getId() {
 		return id;
 	}
@@ -36,8 +31,7 @@ public class Adress {
 		this.id = id;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "id")
+	@Column(name="streetName")
 	public String getAdress() {
 		return adress;
 	}
@@ -46,21 +40,14 @@ public class Adress {
 		this.adress = adress;
 	}
 
-	
-	public int getPerson_id() {
-		return person_id;
+	@Column(name="idPepson")
+	public int getIdPepson() {
+		return idPepson;
 	}
 
-	public void setPerson_id(int person_id) {
-		this.person_id = person_id;
+	public void setIdPepson(int idPepson) {
+		this.idPepson = idPepson;
 	}
 
-	@Override
-	public String toString() {
-		return "Adress [id=" + id + ", adress=" + adress + "]";
-	}
-
-	
-	
 }
 
