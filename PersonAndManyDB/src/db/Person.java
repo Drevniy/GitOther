@@ -1,5 +1,7 @@
 package db;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,22 +17,19 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private int age;
-	private String streetName;
-	private int phoneMobile;
+	private ArrayList<Address> addressList;
+	private ArrayList<Phone> phoneList;
 	
 	public Person() {
 		id = 0;
 		firstName = "";
 		lastName = "";
 		age = 0;
-		streetName = "";
-		phoneMobile = 0;
-		
-		
+		addressList = null;
+		phoneList = null;
 	}
 
 	@Id
-    @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name="id")
 	public int getId() {
@@ -67,23 +66,21 @@ public class Person {
 		this.age = age;
 	}
 
-	public String getStreetName() {
-		return streetName;
+	public ArrayList<Address> getAddressList() {
+		return addressList;
 	}
 
-	public void setStreetName(String streetName) {
-		this.streetName = streetName;
+	public void setAddressList(ArrayList<Address> addressList) {
+		this.addressList = addressList;
 	}
 
-	public int getPhoneMobile() {
-		return phoneMobile;
+	public ArrayList<Phone> getPhoneList() {
+		return phoneList;
 	}
 
-	public void setPhoneMobile(int phoneMobile) {
-		this.phoneMobile = phoneMobile;
+	public void setPhoneList(ArrayList<Phone> phoneList) {
+		this.phoneList = phoneList;
 	}
-	
-	
 	
 	
 }

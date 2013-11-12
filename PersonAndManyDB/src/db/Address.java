@@ -20,7 +20,6 @@ public class Address {
 	int idPepson;
 	
 	@Id
-    @GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name="id")
 	public int getId() {
