@@ -29,7 +29,7 @@ public class ModelTable implements TableModel
 
 	@Override
 	public int getColumnCount() {
-		return 4;
+		return 6;
 	}
 
 	@Override
@@ -48,6 +48,12 @@ public class ModelTable implements TableModel
 			case 3:
 				res = "Age";
 				break;
+			case 4:
+				res = "StreetName";
+				break;
+			case 5:
+				res = "PhoneNumber";
+				break;
 	
 			default:
 				break;
@@ -62,9 +68,9 @@ public class ModelTable implements TableModel
 
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		boolean res = false;
-		if(columnIndex==1||columnIndex==2||columnIndex==3){
-			res = true;
+		boolean res = true;
+		if(columnIndex==0){
+			res = false;
 		}
 		return res;
 	}
@@ -85,6 +91,22 @@ public class ModelTable implements TableModel
 				break;
 			case 3:
 				res = person.getAge();
+				break;
+			case 4:
+				if(person.getAddressList().size()==0){
+					res="";
+				}
+				else{
+					res = person.getAddressList().get(0).getAdress();
+				}
+				break;
+			case 5:
+				if(person.getPhoneList().size()==0){
+					res="";
+				}
+				else{
+					res = person.getPhoneList().get(0).getPhone();
+				}
 				break;
 	
 			default:
@@ -109,7 +131,29 @@ public class ModelTable implements TableModel
 			case 3:
 				person.setAge(Integer.parseInt((String) aValue));
 				break;
-	
+			case 4:
+				if(person.getAddressList().size()==0){
+					Address address = new Address();
+					address.setAdress((String) aValue);
+					person.getAddressList().add(address);
+				}
+				else{
+					person.getAddressList().get(0).setAdress((String) aValue);
+				}
+				
+				break;
+			case 5:
+				if(person.getPhoneList().size()==0){
+					Phone phone = new Phone();
+					phone.setPhone((String) aValue);
+					person.getPhoneList().add(phone);
+				}
+				else{
+					person.getPhoneList().get(0).setPhone((String) aValue);
+				}
+				
+				break;
+				
 			default:
 				break;
 		}

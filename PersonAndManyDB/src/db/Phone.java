@@ -1,12 +1,13 @@
 package db;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Phone {
 
 	@Id
+	@GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name="id")
 	private int id;
@@ -27,9 +29,13 @@ public class Phone {
 	@Column(name="idPerson")
 	private int idPerson;
 	
-	//@ManyToOne
-	//@JoinTable(name = "id")
-	//private Person person;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinTable(
+            name="person",
+            joinColumns = @JoinColumn( name="id"),
+            inverseJoinColumns = @JoinColumn( name="idperson")
+    )
+	private Person person;
 	
  	public int getId() {
 		return id;
@@ -55,12 +61,12 @@ public class Phone {
 		this.idPerson = idPerson;
 	}
 
-/*	public Person getPerson() {
+	public Person getPerson() {
 		return person;
 	}
 
 	public void setPerson(Person person) {
 		this.person = person;
-	}*/
+	}
 	
 }

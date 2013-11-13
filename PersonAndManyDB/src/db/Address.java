@@ -1,5 +1,6 @@
 package db;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Address {
 	
 	@Id
+	@GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name="id")
 	private int id;
@@ -24,12 +26,16 @@ public class Address {
 	@Column(name="streetName")
 	private String adress;
 	
-	@Column(name="idPepson")
+	@Column(name="idPerson")
 	private int idPepson;
 	
-	//@ManyToOne
-	//@JoinTable(name = "id")
-	//private Person person;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinTable(
+            name="person",
+            joinColumns = @JoinColumn( name="id"),
+            inverseJoinColumns = @JoinColumn( name="idperson")
+    )
+	private Person person;
 	
 	public int getId() {
 		return id;
@@ -55,14 +61,14 @@ public class Address {
 		this.idPepson = idPepson;
 	}
 
-/*	public Person getPerson() {
+	public Person getPerson() {
 		return person;
 	}
 
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-	*/
+	
 	
 
 }

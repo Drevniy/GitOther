@@ -3,9 +3,12 @@ package db;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,6 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="Person")
 public class Person {
 	@Id
+	@GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name="id")
 	private int id;
@@ -29,12 +33,20 @@ public class Person {
 	@Column(name="age")
 	private int age;
 	
-	@OneToMany
-	@JoinTable(name = "idPepson")
+	@OneToMany(cascade=CascadeType.ALL)
+	 @JoinTable(
+	            name="address",
+	            joinColumns = @JoinColumn( name="idperson"),
+	            inverseJoinColumns = @JoinColumn( name="id")
+	    )
 	private List<Address> addressList = null ;
 	
-	@OneToMany
-	@JoinTable(name = "idPerson")
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinTable(
+            name="phone",
+            joinColumns = @JoinColumn( name="idperson"),
+            inverseJoinColumns = @JoinColumn( name="id")
+    )
 	private List<Phone> phoneList = null;
 	
 	public Person() {
