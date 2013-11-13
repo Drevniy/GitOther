@@ -3,7 +3,7 @@ package db;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -62,7 +62,7 @@ public class PanelSearch extends JPanel{
 				if(txtFirstName.getText().equals("")&&txtLastName.getText().equals("")
 						&&txtAge.getText().equals("")){
 					
-					ArrayList<Person> listPerson= FromDAO.read(null);
+					List<Person> listPerson= FromDAO.read(null);
 					modelTable.setListPerson(listPerson);
 				}else{
 					Person person = new Person();
@@ -73,7 +73,7 @@ public class PanelSearch extends JPanel{
 						person.setAge(Integer.parseInt(txtAge.getText()));
 					}
 					
-					ArrayList<Person> listPerson= FromDAO.read(person);
+					List<Person> listPerson= FromDAO.read(person);
 					modelTable.setListPerson(listPerson);
 				}
 				

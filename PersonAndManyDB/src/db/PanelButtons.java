@@ -3,6 +3,7 @@ package db;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,9 +12,9 @@ import javax.swing.JTable;
 
 public class PanelButtons extends JPanel {
 	JTable table;
-	ArrayList<Person> listPerson;
+	List<Person> listPerson;
 	
-	public PanelButtons(final JTable table,final ArrayList<Person> listPerson) {
+	public PanelButtons(final JTable table,final List<Person> listPerson) {
 		this.table = table;
 		this.listPerson = listPerson;
 		

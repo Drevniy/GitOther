@@ -4,10 +4,12 @@ import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.Test;
 
 import db.DAO_MongoDB;
+import db.FromDAO;
 import db.Person;
 
 public class Mongo {
@@ -27,10 +29,8 @@ public class Mongo {
 	@Test
 	public void test1() throws UnknownHostException, ClassNotFoundException, SQLException {
 		
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = null;
-		conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test","sqluser", "sqluser");
-		conn.close();
+		List<Person> list = FromDAO.read(null);
+		System.out.println(list.get(0).getFirstName()+" "+list.get(0).getAddressList().get(0).getAdress());
 	}
 	
 }

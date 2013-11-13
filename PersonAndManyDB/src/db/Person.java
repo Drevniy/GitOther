@@ -1,11 +1,13 @@
 package db;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -13,12 +15,27 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name="Person")
 public class Person {
+	@Id
+    @GenericGenerator(name="increment", strategy = "increment")
+    @Column(name="id")
 	private int id;
+	
+	@Column(name="firstname")
 	private String firstName;
+	
+	@Column(name="lastname")
 	private String lastName;
+	
+	@Column(name="age")
 	private int age;
-	private ArrayList<Address> addressList;
-	private ArrayList<Phone> phoneList;
+	
+	@OneToMany
+	@JoinTable(name = "idPepson")
+	private List<Address> addressList = null ;
+	
+	@OneToMany
+	@JoinTable(name = "idPerson")
+	private List<Phone> phoneList = null;
 	
 	public Person() {
 		id = 0;
@@ -29,9 +46,6 @@ public class Person {
 		phoneList = null;
 	}
 
-	@Id
-    @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name="id")
 	public int getId() {
 		return id;
 	}
@@ -40,7 +54,6 @@ public class Person {
 		this.id = id;
 	}
 
-	@Column(name="firstname")
 	public String getFirstName() {
 		return firstName;
 	}
@@ -49,7 +62,6 @@ public class Person {
 		this.firstName = firstName;
 	}
 
-	@Column(name="lastname")
 	public String getLastName() {
 		return lastName;
 	}
@@ -66,7 +78,7 @@ public class Person {
 		this.age = age;
 	}
 
-	public ArrayList<Address> getAddressList() {
+	public List<Address> getAddressList() {
 		return addressList;
 	}
 
@@ -74,7 +86,7 @@ public class Person {
 		this.addressList = addressList;
 	}
 
-	public ArrayList<Phone> getPhoneList() {
+	public List<Phone> getPhoneList() {
 		return phoneList;
 	}
 

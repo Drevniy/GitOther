@@ -3,6 +3,7 @@ import java.io.File;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
@@ -12,7 +13,7 @@ import javax.swing.table.TableModel;
 
 public class ModelTable implements TableModel 
 {
-	private ArrayList<Person> listPerson;
+	private List<Person> listPerson;
 	JTable table;
 	
 	public ModelTable(JTable table) {
@@ -127,11 +128,11 @@ public class ModelTable implements TableModel
 		
 	}
 	
-	public ArrayList<Person> getListPerson() {
+	public List<Person> getListPerson() {
 		return listPerson;
 	}
 	
-	public void setListPerson(ArrayList<Person> listPerson) {
+	public void setListPerson(List<Person> listPerson) {
 		this.listPerson = listPerson;
 		table.revalidate();
 	}

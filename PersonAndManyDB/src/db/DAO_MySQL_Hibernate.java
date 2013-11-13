@@ -7,9 +7,9 @@ import javax.swing.JOptionPane;
 
 import org.hibernate.Session;
 
-public class DAO_MySQL_Hibernate {
+public class DAO_MySQL_Hibernate implements DAO{
 
-	public static void add(Person person) {
+	public void add(Person person) {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
@@ -25,20 +25,17 @@ public class DAO_MySQL_Hibernate {
         }		
 	}
 
-	public static ArrayList<Person> read(Person person) {
-		ArrayList<Person> personList = new ArrayList<Person>();
+	public List<Person> read(Person person) {
+		List<Person> list  = null;
 		
 		if(person==null){
 	          Session session = null;
 	            try {
 	                session = HibernateUtil.getSessionFactory().openSession();
-	                List<Person> list = session.createCriteria(Person.class).list();
-	                for (int i = 0; i < list.size(); i++) {
-	                	personList.add(list.get(i));
-					}
+	                 list = session.createCriteria(Person.class).list();
 	                
 	            } catch (Exception e) {
-	                JOptionPane.showMessageDialog(null, e.getMessage(), "Îøèáêà I/O", JOptionPane.OK_OPTION);
+	                JOptionPane.showMessageDialog(null, e.getMessage(), "Îøèáêà I/O read", JOptionPane.OK_OPTION);
 	            } finally {
 	                if (session != null && session.isOpen()) {
 	                    session.close();
@@ -48,10 +45,10 @@ public class DAO_MySQL_Hibernate {
 			
 		}
 		
-		return  personList;
+		return  list;
 	}
 
-	public static void update(Person person) {
+	public void update(Person person) {
 		 Session session = null;
          try {
              session = HibernateUtil.getSessionFactory().openSession();
@@ -67,7 +64,7 @@ public class DAO_MySQL_Hibernate {
          }		
 	}
 
-	public static void delete(int id) {
+	public void delete(int id) {
 		Person person = new Person();
 		
         Session session = null;

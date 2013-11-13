@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,13 +16,21 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="Address")
 public class Address {
 	
-	int id;
-	String adress;
-	int idPepson;
-	
 	@Id
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name="id")
+	private int id;
+	
+	@Column(name="streetName")
+	private String adress;
+	
+	@Column(name="idPepson")
+	private int idPepson;
+	
+	//@ManyToOne
+	//@JoinTable(name = "id")
+	//private Person person;
+	
 	public int getId() {
 		return id;
 	}
@@ -30,7 +39,6 @@ public class Address {
 		this.id = id;
 	}
 
-	@Column(name="streetName")
 	public String getAdress() {
 		return adress;
 	}
@@ -39,7 +47,6 @@ public class Address {
 		this.adress = adress;
 	}
 
-	@Column(name="idPepson")
 	public int getIdPepson() {
 		return idPepson;
 	}
@@ -47,6 +54,16 @@ public class Address {
 	public void setIdPepson(int idPepson) {
 		this.idPepson = idPepson;
 	}
+
+/*	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+	*/
+	
 
 }
 
