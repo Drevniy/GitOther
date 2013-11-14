@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -33,15 +34,15 @@ public class Person {
 	@Column(name="age")
 	private int age;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany
 	 @JoinTable(
 	            name="address",
-	            joinColumns = @JoinColumn( name="idperson"),
+	            joinColumns = @JoinColumn(name="idperson"),
 	            inverseJoinColumns = @JoinColumn( name="id")
 	    )
 	private List<Address> addressList = null ;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany
 	@JoinTable(
             name="phone",
             joinColumns = @JoinColumn( name="idperson"),

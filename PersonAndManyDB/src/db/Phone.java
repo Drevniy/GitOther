@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,23 +19,15 @@ import org.hibernate.annotations.GenericGenerator;
 public class Phone {
 
 	@Id
-	@GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name="id")
+	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	@Column(name="phone")
 	private String phone;
 	
-	@Column(name="idPerson")
-	private int idPerson;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinTable(
-            name="person",
-            joinColumns = @JoinColumn( name="id"),
-            inverseJoinColumns = @JoinColumn( name="idperson")
-    )
+	@ManyToOne
+	@JoinColumn(name="idPerson", referencedColumnName = "id")
 	private Person person;
 	
  	public int getId() {
@@ -51,14 +44,6 @@ public class Phone {
 
 	public void setPhone(String s) {
 		this.phone = s;
-	}
-
-	public int getIdPerson() {
-		return idPerson;
-	}
-
-	public void setIdPerson(int idPerson) {
-		this.idPerson = idPerson;
 	}
 
 	public Person getPerson() {

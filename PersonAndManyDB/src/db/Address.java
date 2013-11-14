@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,23 +19,15 @@ import org.hibernate.annotations.GenericGenerator;
 public class Address {
 	
 	@Id
-	@GeneratedValue(generator="increment")
-    @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name="id")
+	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	@Column(name="streetName")
 	private String adress;
 	
-	@Column(name="idPerson")
-	private int idPepson;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinTable(
-            name="person",
-            joinColumns = @JoinColumn( name="id"),
-            inverseJoinColumns = @JoinColumn( name="idperson")
-    )
+	@ManyToOne
+	@JoinColumn(name="idPerson", referencedColumnName = "id")
 	private Person person;
 	
 	public int getId() {
@@ -51,14 +44,6 @@ public class Address {
 
 	public void setAdress(String adress) {
 		this.adress = adress;
-	}
-
-	public int getIdPepson() {
-		return idPepson;
-	}
-
-	public void setIdPepson(int idPepson) {
-		this.idPepson = idPepson;
 	}
 
 	public Person getPerson() {
