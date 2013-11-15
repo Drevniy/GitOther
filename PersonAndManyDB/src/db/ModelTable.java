@@ -1,13 +1,8 @@
 package db;
-import java.io.File;
-import java.net.UnknownHostException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 
@@ -179,6 +174,7 @@ public class ModelTable implements TableModel
 	public void setListPerson(List<Person> listPerson) {
 		this.listPerson = listPerson;
 		table.revalidate();
+		table.repaint();
 	}
 
 }

@@ -34,13 +34,13 @@ public class DAO_MySQL_Hibernate implements DAO{
 	                session = HibernateUtil.getSessionFactory().openSession();
 	                session.beginTransaction();
 	                list = session.createCriteria(Person.class).list();
-	                session.getTransaction().commit();
+	                
 	            } catch (Exception e) {
 	                JOptionPane.showMessageDialog(null, e.getMessage(), "Ошибка I/O read", JOptionPane.OK_OPTION);
 	            } finally {
-	                //if (session != null && session.isOpen()) {
-	                  //  session.close();
-	               // }
+	                if (session != null && session.isOpen()) {
+	                	session.close();
+	                }
 	            }
 		}else{
 			
@@ -65,8 +65,7 @@ public class DAO_MySQL_Hibernate implements DAO{
          }		
 	}
 
-	public void delete(int id) {
-		Person person = new Person();
+	public void delete(Person person) {
 		
         Session session = null;
         try {

@@ -17,19 +17,23 @@ public class DialogAddOrUpdate extends JDialog implements ActionListener
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
 	private JTextField txtAge;
+	private JTextField txtAddress;
+	private JTextField txtPhone;
 	
 	public DialogAddOrUpdate(JFrame frame, String title)
 	{
 		super(frame, true);
-		setSize(200, 150);
+		setSize(200, 180);
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setLayout(new GridLayout(4, 2));
+		setLayout(new GridLayout(6, 2));
 		setLocationRelativeTo(frame);
 		
 		JLabel lblFirstName = new JLabel("First Name:");
 		JLabel lblLastName = new JLabel("Last Name:");
 		JLabel lblAge = new JLabel("Age:");
+		JLabel lblAddress = new JLabel("Address:");
+		JLabel lblPhone = new JLabel("Phone:");
 		
 		JButton btnOk = new JButton("Ok");
 		JButton btnCancel = new JButton("Cancel");
@@ -40,6 +44,8 @@ public class DialogAddOrUpdate extends JDialog implements ActionListener
 		txtFirstName = new JTextField("");
 		txtLastName = new JTextField("");
 		txtAge = new JTextField("");
+		txtAddress = new JTextField("");
+		txtPhone = new JTextField("");
 		
 		add(lblFirstName);
 		add(txtFirstName);
@@ -47,6 +53,11 @@ public class DialogAddOrUpdate extends JDialog implements ActionListener
 		add(txtLastName);
 		add(lblAge);
 		add(txtAge);
+		add(lblAddress);
+		add(txtAddress);
+		add(lblPhone);
+		add(txtPhone);
+		
 		add(btnOk);
 		add(btnCancel);
 		
@@ -101,5 +112,23 @@ public class DialogAddOrUpdate extends JDialog implements ActionListener
 	public void setAge(String age) {
 		this.txtAge.setText(age);
 	}
+
+	public String getAddress() {
+		return txtAddress.getText();
+	}
+
+	public void setTxtAddress(String address) {
+		this.txtAddress.setText(address);
+	}
+
+	public String getPhone() {
+		return txtPhone.getText();
+	}
+
+	public void setPhone(String phone) {
+		this.txtPhone.setText(phone);
+	}
+	
+	
 	
 }

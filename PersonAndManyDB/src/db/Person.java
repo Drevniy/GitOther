@@ -6,15 +6,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="Person")
@@ -34,29 +33,21 @@ public class Person {
 	@Column(name="age")
 	private int age;
 	
-	@OneToMany
-	 @JoinTable(
-	            name="address",
-	            joinColumns = @JoinColumn(name="idperson"),
-	            inverseJoinColumns = @JoinColumn( name="id")
-	    )
-	private List<Address> addressList = null ;
+	@OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Address> addressList;
 	
-	@OneToMany
-	@JoinTable(
-            name="phone",
-            joinColumns = @JoinColumn( name="idperson"),
-            inverseJoinColumns = @JoinColumn( name="id")
-    )
-	private List<Phone> phoneList = null;
+	@OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Phone> phoneList;
 	
 	public Person() {
 		id = 0;
 		firstName = "";
 		lastName = "";
 		age = 0;
-		addressList = null;
-		phoneList = null;
+		addressList = new ArrayList<>();
+		phoneList = new ArrayList<>();
 	}
 
 	public int getId() {

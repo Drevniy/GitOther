@@ -19,9 +19,9 @@ public class FromDAO {
 		FactoryDAO.getDaoHibernate().update(person);
 
 	}
-	public static void delete(int id) {
+	public static void delete(Person person) {
 		//DAO_MongoDB.delete(id);
-		FactoryDAO.getDaoHibernate().delete(id);
+		FactoryDAO.getDaoHibernate().delete(person);
 
 	}
 }

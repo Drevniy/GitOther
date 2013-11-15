@@ -27,7 +27,7 @@ public class PanelButtons extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Person person = listPerson.get(table.getSelectedRow());
-				FromDAO.delete(person.getId());
+				FromDAO.delete(person);
 				
 				listPerson.remove(table.getSelectedRow());
 				table.revalidate();
@@ -45,13 +45,31 @@ public class PanelButtons extends JPanel {
 					person.setLastName(dialog.getLastName());
 					person.setAge(Integer.parseInt(dialog.getAge()));
 					
-					int res = 0;
+					Address address = new Address();
+					Phone phone = new Phone();
+
+					address.setPerson(person);
+					address.setAdress(dialog.getAddress());
+					
+					phone.setPerson(person);
+					phone.setPhone(dialog.getPhone());
+					
+					ArrayList<Address> addressList = new ArrayList<>();
+					ArrayList<Phone> phoneList = new ArrayList<>();
+					
+					addressList.add(address);
+					phoneList.add(phone);
+					
+					person.setAddressList(addressList);
+					person.setPhoneList(phoneList);
+					
+					/*int res = 0;
 					for (int i = 0; i < listPerson.size(); i++) {
 						if(listPerson.get(i).getId()>res){
 							res = listPerson.get(i).getId();
 						}
 					}
-					person.setId(res+1);
+					person.setId(res+1);*/
 					
 					FromDAO.add(person);
 					listPerson.add(person);
