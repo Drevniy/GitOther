@@ -19,8 +19,9 @@ import org.hibernate.annotations.GenericGenerator;
 public class Address {
 	
 	@Id
+	@GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
 	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	@Column(name="streetName")

@@ -31,6 +31,7 @@ public class PanelButtons extends JPanel {
 				
 				listPerson.remove(table.getSelectedRow());
 				table.revalidate();
+				table.repaint();
 			}
 		});
 		
@@ -74,6 +75,7 @@ public class PanelButtons extends JPanel {
 					FromDAO.add(person);
 					listPerson.add(person);
 					table.revalidate();
+					table.repaint();
 					
 				}else{
 				}

@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -21,35 +22,26 @@ public class Person {
 	@Id
 	@GeneratedValue(generator="increment")
     @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name="id")
+	@Column(name="id")
 	private int id;
 	
 	@Column(name="firstname")
-	private String firstName;
+	private String firstName = "";
 	
 	@Column(name="lastname")
-	private String lastName;
+	private String lastName = "";
 	
 	@Column(name="age")
-	private int age;
+	private int age = 0;
 	
 	@OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Address> addressList;
+	private List<Address> addressList = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "person",cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Phone> phoneList;
+	private List<Phone> phoneList = new ArrayList<>();
 	
-	public Person() {
-		id = 0;
-		firstName = "";
-		lastName = "";
-		age = 0;
-		addressList = new ArrayList<>();
-		phoneList = new ArrayList<>();
-	}
-
 	public int getId() {
 		return id;
 	}

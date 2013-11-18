@@ -130,6 +130,7 @@ public class ModelTable implements TableModel
 				if(person.getAddressList().size()==0){
 					Address address = new Address();
 					address.setAdress((String) aValue);
+					address.setPerson(person);
 					person.getAddressList().add(address);
 				}
 				else{
@@ -141,6 +142,7 @@ public class ModelTable implements TableModel
 				if(person.getPhoneList().size()==0){
 					Phone phone = new Phone();
 					phone.setPhone((String) aValue);
+					phone.setPerson(person);
 					person.getPhoneList().add(phone);
 				}
 				else{
